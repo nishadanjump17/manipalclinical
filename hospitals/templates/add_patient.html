@@ -1,0 +1,534 @@
+{% extends 'admin_nav.html' %}
+{% load static %}
+{% block content %}
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+</head>
+
+<body>
+    {% if error == "no" %}
+    <script>
+        alert('Record Save Successfully');
+        window.location = ('{% url 'view_patient' %}');
+    </script>
+    {% endif %}
+
+    {% if error == "yes" %}
+    <script>
+        alert('Something went wrong, Try Again');
+    </script>
+    {% endif %}
+    <br><br><br><br>
+    <div class="container card shadow m-5">
+        <div class="card-body">
+            <h5 class="p-2" style="border-bottom: 2px solid orange">Add Patient Details</h5>
+            <br>
+            <div class="container-fluid">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+    
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Patient Name</label>
+                                <input type="text" name="name" class="form-control" placeholder=" Ms/Mrs" required>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Mobile Number</label>
+                                <input type="text" name="mobile" class="form-control"
+                                    placeholder="Enter Ten Digit Mobile Number" required>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="text" name="mobile" class="form-control" placeholder="Enter Your Age "
+                                    required>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <input type="radio" name="gender" value="Male"> Male
+                                <input type="radio" name="gender" value="Female"> Female
+                            </div>
+                        </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>Patients</label>
+                                                        <input type="radio" name="OP" value="OP"> OP
+                                                        <input type="radio" name="IP" value="IP"> IP
+                                                    </div>
+                                                </div>
+
+                        <style>
+                            * {
+                                box-sizing: border-box;
+                            }
+                        
+                            body {
+                                font: 16px Arial;
+                            }
+                        
+                            /*the container must be positioned relative:*/
+                            .autocomplete {
+                                position: relative;
+                                display: inline-block;
+                            }
+                        
+                            input {
+                                border: 1px solid transparent;
+                                background-color: #f1f1f1;
+                                padding: 10px;
+                                font-size: 16px;
+                            }
+                        
+                            input[type=text] {
+                                background-color: #f1f1f1;
+                                width: 100%;
+                            }
+                        
+                            input[type=submit] {
+                                background-color: DodgerBlue;
+                                color: #fff;
+                                cursor: pointer;
+                            }
+                        
+                            .autocomplete-items {
+                                position: absolute;
+                                border: 1px solid #d4d4d4;
+                                border-bottom: none;
+                                border-top: none;
+                                z-index: 99;
+                                /*position the autocomplete items to be the same width as the container:*/
+                                top: 100%;
+                                left: 0;
+                                right: 0;
+                            }
+                        
+                            .autocomplete-items div {
+                                padding: 10px;
+                                cursor: pointer;
+                                background-color: #fff;
+                                border-bottom: 1px solid #d4d4d4;
+                            }
+                        
+                            /*when hovering an item:*/
+                            .autocomplete-items div:hover {
+                                background-color: #e9e9e9;
+                            }
+                        
+                            /*when navigating through the items using the arrow keys:*/
+                            .autocomplete-active {
+                                background-color: DodgerBlue !important;
+                                color: #ffffff;
+                            }
+                        </style>
+                        <form autocomplete="off" action="/action_page.php"></form>
+                        <div class="autocomplete" style="width:300px,">
+                        <input id ='myInput' type="'text" name="'Patients Tests" placeholder="Search Tests">
+                        </div>
+                        <input type="submit" value="Select" class="btn btn-primary">
+                        </form>
+                        <script>
+                            function autocomplete(inp, arr) {
+                                /*the autocomplete function takes two arguments,
+                                the text field element and an array of possible autocompleted values:*/
+                                var currentFocus;
+                                /*execute a function when someone writes in the text field:*/
+                                inp.addEventListener("input", function (e) {
+                                    var a, b, i, val = this.value;
+                                    /*close any already open lists of autocompleted values*/
+                                    closeAllLists();
+                                    if (!val) { return false; }
+                                    currentFocus = -1;
+                                    /*create a DIV element that will contain the items (values):*/
+                                    a = document.createElement("DIV");
+                                    a.setAttribute("id", this.id + "autocomplete-list");
+                                    a.setAttribute("class", "autocomplete-items");
+                                    /*append the DIV element as a child of the autocomplete container:*/
+                                    this.parentNode.appendChild(a);
+                                    /*for each item in the array...*/
+                                    for (i = 0; i < arr.length; i++) {
+                                        /*check if the item starts with the same letters as the text field value:*/
+                                        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                                            /*create a DIV element for each matching element:*/
+                                            b = document.createElement("DIV");
+                                            /*make the matching letters bold:*/
+                                            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                                            b.innerHTML += arr[i].substr(val.length);
+                                            /*insert a input field that will hold the current array item's value:*/
+                                            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                                            /*execute a function when someone clicks on the item value (DIV element):*/
+                                            b.addEventListener("click", function (e) {
+                                                /*insert the value for the autocomplete text field:*/
+                                                inp.value = this.getElementsByTagName("input")[0].value;
+                                                /*close the list of autocompleted values,
+                                                (or any other open lists of autocompleted values:*/
+                                                closeAllLists();
+                                            });
+                                            a.appendChild(b);
+                                        }
+                                    }
+                                });
+                                /*execute a function presses a key on the keyboard:*/
+                                inp.addEventListener("keydown", function (e) {
+                                    var x = document.getElementById(this.id + "autocomplete-list");
+                                    if (x) x = x.getElementsByTagName("div");
+                                    if (e.keyCode == 40) {
+                                        /*If the arrow DOWN key is pressed,
+                                        increase the currentFocus variable:*/
+                                        currentFocus++;
+                                        /*and and make the current item more visible:*/
+                                        addActive(x);
+                                    } else if (e.keyCode == 38) { //up
+                                        /*If the arrow UP key is pressed,
+                                        decrease the currentFocus variable:*/
+                                        currentFocus--;
+                                        /*and and make the current item more visible:*/
+                                        addActive(x);
+                                    } else if (e.keyCode == 13) {
+                                        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                                        e.preventDefault();
+                                        if (currentFocus > -1) {
+                                            /*and simulate a click on the "active" item:*/
+                                            if (x) x[currentFocus].click();
+                                        }
+                                    }
+                                });
+                                function addActive(x) {
+                                    /*a function to classify an item as "active":*/
+                                    if (!x) return false;
+                                    /*start by removing the "active" class on all items:*/
+                                    removeActive(x);
+                                    if (currentFocus >= x.length) currentFocus = 0;
+                                    if (currentFocus < 0) currentFocus = (x.length - 1);
+                                    /*add class "autocomplete-active":*/
+                                    x[currentFocus].classList.add("autocomplete-active");
+                                }
+                                function removeActive(x) {
+                                    /*a function to remove the "active" class from all autocomplete items:*/
+                                    for (var i = 0; i < x.length; i++) {
+                                        x[i].classList.remove("autocomplete-active");
+                                    }
+                                }
+                                function closeAllLists(elmnt) {
+                                    /*close all autocomplete lists in the document,
+                                    except the one passed as an argument:*/
+                                    var x = document.getElementsByClassName("autocomplete-items");
+                                    for (var i = 0; i < x.length; i++) {
+                                        if (elmnt != x[i] && elmnt != inp) {
+                                            x[i].parentNode.removeChild(x[i]);
+                                        }
+                                    }
+                                }
+                                /*execute a function when someone clicks in the document:*/
+                                document.addEventListener("click", function (e) {
+                                    closeAllLists(e.target);
+                                });
+                            }
+
+                            /*An array containing all the country names in the world:*/
+                            var Tests = ["BIOCHEMISTRY",
+                                       "17 - HYDROXY PROGESTERONE",
+                                    "17 - HYDROXY CORTICOSTEROIDS IN URINE",
+                                    "17 - KETOGENIC STEROIDS(URINE)",
+                                    "24 HOURS URINARY CALCIUM",
+                                    "A / G RATIO1",
+                                    "“ALANINE AMINOTRANSFERASE(SGPT / ALT)",
+                                    "ALKALINE PHOSPHATASE(ALP)",
+                                    "AMMONIA",
+                                    "ANTI CCP(CYCLIC CITRULLINATED PEPTIDE)",
+                                    "ARTERIAL BLOOD GAS ANALYSIS(ABG)",
+                                    "ASPARATE AMINOTRANSFERASE(SGOT / AST)",
+                                    " BICARBONATE",
+                                    "BLOOD ALCOHOL LEVEL",
+                                    "BLOOD UREA",
+                                    "BLOOD UREA NITROGEN(BUN)",
+                                    "CARBAMAZEPINE",
+                                    "CEROLOPLASMIN",
+                                    "COLD AGGLUTINATION TEST",
+                                    "CPK(CK NAK)",
+                                    "CPK - MB",
+                                    "D - DIMER",
+                                    "DOUBLE MARKER",
+                                    "FASTING BLOOD SUGAR(FBS)",
+                                    "FASTING SERUM INSULIN",
+                                    "GAMMA GLUTAMYL TRANSPEPTIDASE(GGT)",
+                                    "GARDINAL",
+                                    "GLUCOSE CHALLENGE TEST(GCT)",
+                                    "GLUCOSE TOLERANCE TEST(GTT)",
+                                    "GROWTH HORMONE(GH)",
+                                    "HbA1c(GLYCOSYLATED HAEMOGLOBIN)",
+                                    "HDL CHOLESTEROL – DIRECT",
+                                    "IGG & IGM",
+                                    "INTERLEUKIN 6(IL - 6)",
+                                    "IONIZED CALCIUM",
+                                    "IRON",
+                                    "IRON & TIBC",
+                                    "IRON PROFILE",
+                                    "IRON PROFILE WITH FERRITIN",
+                                    "LACTATE LEVEL",
+                                    "LDH",
+                                    "LDL CHOLESTEROL – DIRECT",
+                                    "LDL / HDL",
+                                    "LIPASE",
+                                    "LIPID PROFILE TEST(LPT)",
+                                    "LITHIUM",
+                                    "LIVER FUNCTION TEST(LFT)",
+                                    "PLASMA OSMOLARITY",
+                                    "POST PRANDIAL BLOOD SUGAR(PPBS)",
+                                    "PROTEIN / CREATININE RATIO – URINE(RANDOM)",
+                                    "RANDOM BLOOD SUGAR(RBS)",
+                                    "RENAL FUNCTION TEST(RFT)",
+                                    "RHEUMATOID FACTOR(RA)",
+                                    "SERUM ALBUMIN",
+                                    "SERUM AMYLASE",
+                                    "SERUM BILIRUBIN",
+                                    "SERUM CALCIUM",
+                                    "SERUM CHLORIDE",
+                                    "SERUM CREATININE",
+                                    "SERUM ELECTROLYTES",
+                                    "SERUM FERRITIN",
+                                    "SERUM GLOBULIN",
+                                    "SERUM MAGNESIUM",
+                                    "SERUM PHOSPHORUS",
+                                    "SERUM POTASSIUM(K +)",
+                                    "SERUM PROTEIN ELECTROPHORESIS",
+                                    "SERUM SODIUM(Na +)",
+                                    "SERUM TRIGLYCERIDES",
+                                    "SERUM URIC ACID",
+                                    "TC / HDL",
+                                    "TOTAL CHOLESTEROL",
+                                    "TOTAL IRON BINDING CAPACITY(TIBC)",
+                                    "TOTAL PROTEIN",
+                                    "TRANSFERRIN",
+                                    "TRANSFERRIN SATURATION",
+                                    "TROPONIN T",
+                                    "UIBC",
+                                    "VLDL CHOLESTEROL",
+                                    "CLINICAL PATHOLOGY",
+                                    "24 HRS URINE FOR CALCIUM",
+                                    "24 HRS URINE FOR CHLORIDE(Clo2)",
+                                    "24 HRS URINE FOR CREATININE",
+                                    "24 HRS URINE FOR PHOSPHOROUS",
+                                    "24 HRS URINE FOR POTASSIUM(K +)",
+                                    "24 HRS URINE FOR SODIUM(Na)",
+                                    "24 HRS URINE PROTEIN",
+                                    "ASCITIC FLUID ANALYSIS",
+                                    "BENCE - JONES PROTEIN",
+                                    "COMPLETE URINE ANALYSIS",
+                                    "CSF ANALYSIS",
+                                    "DIRECT COOMB’S TEST(DCT)",
+                                    "FASTING URINE SUGAR(FUS)",
+                                    "FNAC",
+                                    "HCT",
+                                    "HISTOPATHOLOGY REPORT",
+                                    "ICT / DCT",
+                                    "INDIRECT COOMB’S TEST(ICT)",
+                                    "PERICARDIAL FLUID CYTOLOGY",
+                                    "PLEURAL FLUID ANALYSIS",
+                                    "POST PRANDIAL URINE SUGAR(PPUS)",
+                                    "RANDOM URINE SUGAR(RUS)",
+                                    "SEMEN ANALYSIS",
+                                    "SPOT URINE CALCIUM",
+                                    "SPOT URINE CREATININE",
+                                    "SPOT URINE PROTEIN",
+                                    "STOOL ANALYSIS",
+                                    "STOOL FOR HANGING DROP",
+                                    "STOOL FOR OCCULT BLOOD",
+                                    "STOOL FOR PH",
+                                    "STOOL FOR REDUCING SUBSTANCE",
+                                    "STOOL OVA / CYST",
+                                    "URINE NICOTINE",
+                                    "URINE ACETONE",
+                                    "URINE ALBUMIN",
+                                    "URINE BILE PIGMENT",
+                                    "URINE BILE SALT",
+                                    "URINE BILE SALT AND BILE PIGMENTS(BS & BP)",
+                                    "URINE FOR AFB",
+                                    "URINE FOR PORPHOBILINOGEN",
+                                    "URINE KETONE BODIES",
+                                    "URINE MICROALBUMINUREA",
+                                    "URINE MICROSCOPY",
+                                    "URINE OCCULT BLOOD",
+                                    "URINE PREGNANCY TEST(UPT)",
+                                    "URINE ROUTINE",
+                                    "URINE SUGAR",
+                                    "CYTOLOGY",
+                                    "CSF CYTOLOGY",
+                                    "PAP SMEAR",
+                                    "PLEURAL FLUID CYTOLOGY",
+                                    "SPUTUM CYTOLOGY",
+                                    "URINE CYTOLOGY",
+                                    "HAEMATOLOGY",
+                                    "ABSOLUTE LYMPHOCYTE COUNT",
+                                    "ABSOLUTE NEUTROPHIL COUNT",
+                                    "ACTIVE PARTIAL THROMBOPLASTIN TIME(APTT)",
+                                    "AEC",
+                                    "ANTI MULLERIAN HORMONE(AMH)",
+                                    "BLEEDING TIME(BT)",
+                                    "BLOOD GROUP & RH TYPE",
+                                    "BT, CT",
+                                    "CA - 19.9",
+                                    "CLOTTING TIME(CT)",
+                                    "COMPLETE BLOOD COUNT(CBC)",
+                                    "COMPLETE HAEMOGRAM(CBP)",
+                                    "CROSS MATCH WHOLE BLOOD / PACKED",
+                                    "DENGUE PROFILE(IgG, IgM & Ns1Ag)",
+                                    "DIFFERENTIAL COUNT(DC)",
+                                    "ESR",
+                                    "GLUCOSE 6 PHOSPHATE DEHYDROGENASE(G6PD QUALITATIVE)",
+                                    "GLUCOSE 6 PHOSPHATE DEHYDROGENASE(G6PD QUANTITATIVE)",
+                                    "HAEMOGLOBIN(Hb)",
+                                    "HB, TC, DC, ESR",
+                                    "HIGH SENSITIVE CRP(hsCRP)",
+                                    "LE CELL",
+                                    "LEPTO IgG & IgM",
+                                    "LEPTOSPIROSIS IgM",
+                                    "MALARIAL PARASITE(CARD TEST)",
+                                    "MALARIAL PARASITES SMEAR(MP SMEAR)",
+                                    "MANTOUX(PPD)",
+                                    "MCH",
+                                    "MCHC",
+                                    "MCV",
+                                    "MICROFILARIAE(QBC)",
+                                    "MP(QBC)",
+                                    "PACKED CELL VOLUME(PCV)",
+                                    "PERIPHERAL SMEAR",
+                                    "PLASMA FIBRIDOGEN LEVEL",
+                                    "PLATELET COUNT",
+                                    "PROTHROMBIN TIME(PT)",
+                                    "RBC COUNT",
+                                    "RETICULOCYTE COUNT",
+                                    "SMEAR FOR MICROFILARIAE",
+                                    "TC, DC",
+                                    "TOTAL COUNT(TC)",
+                                    "HISTOPATHOLOGY",
+                                    "BIOPSY",
+                                    "BIOPSY – LARGE SPECIMEN",
+                                    "BIOPSY – MEDIUM SPECIMEN",
+                                    "BIOPSY - SMALL SPECIMEN",
+                                    "BONE MARROW",
+                                    "HORMONE ASSAYS",
+                                    "125 - DI HYDROXY CHOLECALCIFEROL(VITAMIN D3)",
+                                    "17 - OH - PROGESTERONE",
+                                    "25 - HYDROXY VITAMIN D",
+                                    "ACCP(ANTICYCLIC CITRALLINATED PEPTIDE)",
+                                    "AFP",
+                                    "ANTI Ds DNA",
+                                    "ANTI HAV IGM",
+                                    "ANTI TPO ANTIBODY",
+                                    "B - HCG",
+                                    "CA – 125",
+                                    "CEA",
+                                    "CORTISOL AM",
+                                    "CORTISOL PM",
+                                    "CORTISOL RANDOM",
+                                    "ESTRADIOL",
+                                    "FSH",
+                                    "FT3",
+                                    "FT4",
+                                    "HLAB - 27",
+                                    "IMMUNOGLOBULIN IgA",
+                                    "IMMUNOGLOBULIN IgE",
+                                    "IMMUNOGLOBULIN IgG",
+                                    "LH",
+                                    "PROGESTERONE",
+                                    "PROLACTIN",
+                                    "PSA",
+                                    "SERUM CORTISOL",
+                                    "T3",
+                                    "T4",
+                                    "TESTOSTERONE",
+                                    "THYROID PROFILE(T3, T4, TSH)",
+                                    "TORCH IgG",
+                                    "TORCH IgM",
+                                    "TORCH PANEL",
+                                    "TPHA",
+                                    "TRIPLE MARKER TEST",
+                                    "TROPONIN l",
+                                    "TSH",
+                                    "VITAMIN B - 12",
+                                    "VITAMIN D3",
+                                    "MICROBIOLOGY",
+                                    "CULTURE & SENSITIVITY – BLOOD",
+                                    "CULTURE & SENSITIVITY – BRONCHIAL WASH",
+                                    "CULTURE & SENSITIVITY – CATHETER TIP",
+                                    "CULTURE & SENSITIVITY – CVP TIP",
+                                    "CULTURE & SENSITIVITY – EAR / THROAT SWAB",
+                                    "CULTURE & SENSITIVITY – ET TUBE TIP",
+                                    "CULTURE & SENSITIVITY – EYE SWAB",
+                                    "CULTURE & SENSITIVITY – FLUID",
+                                    "CULTURE & SENSITIVITY – OT SWAB",
+                                    "CULTURE & SENSITIVITY – PUS",
+                                    "CULTURE & SENSITIVITY – SPUTUM",
+                                    "CULTURE & SENSITIVITY – STOOL",
+                                    "CULTURE & SENSITIVITY – SYNOVIAL FLUID",
+                                    "CULTURE & SENSITIVITY – TISSUE",
+                                    "CULTURE & SENSITIVITY – URINE",
+                                    "CULTURE & SENSITIVITY – VAGINAL SWAB",
+                                    "GRAM STAIN",
+                                    "INDIA INK PREPARATION",
+                                    "INHALATION ALLERGY TEST",
+                                    "KOH MOUNT",
+                                    "SPUTUM FOR AFB",
+                                    "UMBILICAL TIP FOR CULTURE",
+                                    "MOLECULAR BIOLOGY",
+                                    "COVID - 19(SARS - COV - 2) QUALITATIVE PCR",
+                                    "PATHOLOGY",
+                                    "COVID - 19 IgG & IgM Duo",
+                                    "HEPATITIS C VIRAL(HCV RNA), PCR, QUALITATIV",
+                                    "SEROLOGY",
+                                    "ASO TITRE(ASLO)",
+                                    "C - REACTIVE PROTEIN(CRP)",
+                                    "CD4",
+                                    "CHIKUNGUNYA IgM",
+                                    "COVID - 19 Screening(Nucleic Acid Amplification, Qualitative)",
+                                    "HBsAg CLIA",
+                                    "HCV(CARD TEST)",
+                                    "HCV CLIA",
+                                    "HEPATITIS B SURFACE ANTIGEN(HBsAg)(CARD)",
+                                    "HIGH SENSITIVE C - REACTIVE PROTEIN",
+                                    "HIV 1 & 2",
+                                    "HIV CLIA",
+                                    "HIV ELISA",
+                                    "IgE LEVEL",
+                                    "PCT",
+                                    "VDRL",
+                                    "WEIL FELIX TEST",
+                                    "WIDAL SLIDE",
+                                    "WIDAL TUBE TEST", ];
+
+                            /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+                            autocomplete(document.getElementById("myInput"), Tests);
+                        </script>
+
+                    
+
+                        </div>
+</div>
+<hr>
+<input type="submit" value="Submit" class="btn btn-primary">
+</form>
+</div>
+</div>
+</div>
+</body>
+
+</html>
+{% endblock content %}

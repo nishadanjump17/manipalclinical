@@ -1,0 +1,79 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<section id="about">
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="section-title">
+						<div class="section-subtitle">About Us</div>
+						<h2 class="section-main-title">
+							All About <strong>Our Lab</strong>
+						</h2>
+					</div>
+
+					<div class="about-item">
+						<p>Our Clinical Laboratory is Conveniently located nearer to the main road and is easily identifiable. Manipal Clinical laboratory technologists perform complex tests and procedures that help physicians detect, diagnose. Our Lab's goal is to provide quick and accurate results at an affordable price in rural areas.</p>
+					</div>
+				</div>
+
+				<div class="col-sm-4 offset-sm-2">
+				 <div class="about-box">
+				   <img src= "{% static 'images/manipal.jpg' %}">
+				 </div>
+				</div>
+            </div>
+
+			<div class="row mt-5">
+				<div class="col-sm-4">
+				 <div class="about-boxx">
+				   <img src="{% static 'images/1.jpg' %}">
+				 </div>
+				</div>
+				<div class="col-sm-6 offset-sm-2">
+				<div class="about-item mt-5">
+					<h4><span style="color:red">All About</span> <span style="color:green"><b>Our Lab Services</b></span></h4>
+					<p><span style="color: red">Facility:</span>  Haematology, Biochemistry, Microbiology, Hormone assay, Urine and Stool analysis, Abroad Packages and Home Sample Collections</p>
+					<ul style=“list-style-type:square”>
+					<p><span style="color: red">Health Profile Tests:</span> </p>
+					<li>Diabetic Profile</li>
+					<li>Throid Profile</li>
+						    <li>Fertility Profile</li>
+							<li>Fever Profile</li>
+							<li>Liver Function Test</li>
+							<li>Kidney Function Test</li>
+							<li>Cardiac Markers</li>
+							<li>HIV/TB</li>
+							<li>All Other Special Investigation</li>
+						
+						</ul>
+					</div>
+				</div>
+			</div>
+
+            <div class="row mt-5">
+				<div class="col-sm-6">
+				<div class="about-item mt-5">
+					<h4><span style="color:green"></span>Certified<span style="color:red"><b>Laboratory</b></span></h4>
+						<p>Manipal Hi-Tech Clinical Laboratory has been granted registration as under Karnataka Private Medical Establishment(Amended) Act 2018. Reg. No. DVG00293ALMDL</p>
+					</div>
+				</div>
+
+				<div class="col-sm-4 offset-sm-2">
+				 <div class="about-box">
+				   <img src="{% static 'images/2.jpg' %}">
+				 </div>
+				</div>
+			</div>
+		</div>
+		<!-- Start Footer -->
+		<footer class="container-fluid bg-dark text-center p-2 mt-5">
+			<small class="text-white">Copyright &copy; 2022 || Developed By Manipal Clinical Laboratory || </small>
+		
+		</footer> <!-- End Footer -->
+	
+
+{% endblock%}
